@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+<div class="box">
+    <leftlist v-bind:con="con"></leftlist>
+</div>
+<script>
+    Vue.component('leftlist',{
+        props:["con"],
+        template:`<div>
+                    <div v-for="item in con">
+                        <ul v-on:click="show(item)">{{item['title']}}
+                            <li v-for="son in item['arr']" v-show="!item['hide']">{{son}}</li>
+                        </ul>
+                    </div>
+                    </div>`,
+
+        methods:{
+            show:function (item) {
+                item.hide = !item.hide
+            }
+        }
+    })
+
+    new Vue({
+        el:".box",
+        data:{
+            con:[
+                {title:'css',arr:["a","b","c"],hide:false},
+                {title:'js',arr:["d","e","f"],hide:false},
+                {title:'php',arr:["g","h","i"],hide:false}
+            ]
+        }
+    })
+</script>
+</body>
+</html>
